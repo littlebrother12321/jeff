@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Story+Script&display=swap");
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* a {
+  @apply link link-primary;
+}
+
+a:hover {
+  @apply link-hover;
+} */
+
+.text-gren {
+    color: #00FF00;
+}
+
+@font-face {
+    --font-sans: "We The People";
+    --src:
+	local("We The People"),
+	url("WeThePeople.ttf") format("truetype");
+}
+
+@theme {
+    --font-sans: "We The People", sans-serif;
+    --src: url("WeThePeople.ttf");
+}
+
+.container {
+  @apply max-w-5xl mx-auto block p-4;
+}

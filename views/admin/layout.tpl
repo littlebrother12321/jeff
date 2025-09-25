@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-theme="emerald">
+<head>
+<title>{{ .Title }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="{{.BaseUrl}}/static/css/output.css">
+{{ block "css" . }}{{ end }}
+</head>
+<body>
+<header class="navbar bg-base-100 shadow-lg mb-4">
+  <div class="navbar-start">
+    <div class="flex gap-2">
+      <a class="link link-primary" href="/">Home</a>
+      <a class="link link-primary" href="/about">About</a>
+    </div>
+  </div>
+  
+  <div class="navbar-end">
+    {{ if .IsLoggedIn }}
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 h-10 rounded-full bg-primary text-primary-content">
+            {{ if .User }}
+              <span class="sr-only">{{ .User.Email }}</span>
+            {{ end }}
+            <svg
+              style="margin: 7px;"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 32 32"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M16 16c4.418 0 8-3.582 8-8S20.418 0 16 0 8 3.582 8 8s3.582 8 8 8z"/>
+              <path d="M4 32c0-6.627 5.373-12 12-12s12 5.373 12 12"/>
+            </svg>
+        </div>
+      </div>
+      <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li class="menu-title">
+          <span>Welcome, {{ .User.Name}}!</span>
+        </li>
+        <li><a href="/profile">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+          Profile
+        </a></li>
+        <li><a href="/admin/logout" class="text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+          </svg>
+          Logout
+        </a></li>
+      </ul>
+    </div>
+    {{ else }}
+    <div class="flex gap-2">
+      <a href="/admin/login" class="btn btn-ghost">Login</a>
+    </div>
+    {{ end }}
+  </div>
+</header>
+
+<div class="container mx-auto px-4">
+{{ block "content" . }}{{ end }}
+</div>
+
+{{ block "js" . }}{{ end }}
+</body>
+</html>

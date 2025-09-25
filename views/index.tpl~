@@ -1,0 +1,7 @@
+{{ template "layout.tpl" . }}
+{{ define "content" }}
+        <h2 class="text-3xl font-bold">{{ .Title }}</h2>
+        <p>Helo luke wuz here.</p>
+	<br>
+	<a href="/static/WeThePeople.ttf" class="link">Please download and install this font for website</a>
+{{ end }}

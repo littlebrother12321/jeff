@@ -1,0 +1,61 @@
+package controllers
+
+import (
+	"firstbee/models"
+	"firstbee/utils"
+
+	beego "github.com/beego/beego/v2/server/web"
+)
+
+type BaseAdminController struct {
+	beego.Controller
+}
+
+// Prepare runs before every request
+func (c *BaseAdminController) Prepare() {
+	// Set common template data
+	c.setCommonData()
+}
+
+// Set common data for all templates
+func (c *BaseAdminController) setCommonData() {
+	// Check if user is logged in and set template variables
+	if c.IsLoggedIn() {
+		user := c.GetCurrentUser()
+		c.Data["IsLoggedIn"] = true
+		c.Data["User"] = user
+	} else {
+		c.Data["IsLoggedIn"] = false
+		c.Data["User"] = nil
+	}
+}
+
+// Check if user is logged in
+func (c *BaseAdminController) IsLoggedIn() bool {
+	user := c.GetSession("user")
+	return user != nil
+}
+
+// Get current user from session
+func (c *BaseAdminController) GetCurrentUser() *models.User {
+	userSession := c.GetSession("user")
+	if userSession == nil {
+		return nil
+	}
+
+	// Assuming you store user info in session
+	if user, ok := userSession.(models.User); ok {
+		return &user
+	}
+	return nil
+}
+
+// RequireAuth middleware - add this to controllers that need authentication
+func (c *BaseAdminController) RequireAuth() {
+	if !c.IsLoggedIn() {
+		// Store the current URL for redirect after login
+		c.SetSession("redirect_after_login", c.Ctx.Request.URL.Path)
+		c.Redirect("/admin/login", 302)
+		return
+	}
+}
