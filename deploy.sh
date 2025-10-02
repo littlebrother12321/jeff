@@ -5,9 +5,9 @@ docker build . -t $NAME
 docker save -o $NAME.tar $NAME
 # The << marker followed by the name (EOF) tells the script to pass the following lines until the name is found at the beginning of the line (by itself).
 sftp $SSH_DEST <<EOF
-put $(printf "%q\n" "$(pwd)" | pbcopy)/$NAME.tar
-put $(printf "%q\n" "$(pwd)" | pbcopy)/docker-compose.yaml
-put $(printf "%q\n" "$(pwd)" | pbcopy)/.env .env
+put $(printf "%q\n" "$(pwd)")/$NAME.tar
+put $(printf "%q\n" "$(pwd)")/docker-compose.yaml
+put $(printf "%q\n" "$(pwd)")/.env .env
 exit
 EOF
 # ssh load image and stop existing containers
