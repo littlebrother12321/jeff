@@ -9,7 +9,7 @@ networks:
 services:
   lukecoolthing:
     container_name: lukecoolthing
-    image: myapp
+    image: lukecoolthing
     restart: unless-stopped
     networks:
       - traefik
@@ -17,6 +17,6 @@ services:
     labels:
       # this is so the traefik proxy connects your domain to your app
       - "traefik.enable=true"
-      - "traefik.http.routers.stopwatch.rule=Host(`myapp.meritprepacademy.app`)"
-      - "traefik.http.routers.stopwatch.entrypoints=web"
-      - "traefik.http.services.stopwatch.loadbalancer.server.port=8080"
+      - "traefik.http.routers.lukecoolthing.rule=Host(`lukecoolthing.meritprepacademy.app`)"
+      - "traefik.http.routers.lukecoolthing.entrypoints=web"
+      - "traefik.http.services.lukecoolthing.loadbalancer.server.port=8080"
