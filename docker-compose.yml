@@ -1,0 +1,22 @@
+networks:
+  # these are for connecting with postgres and traefik later
+  pg:
+    driver: bridge
+    external: true
+  traefik:
+    driver: bridge
+    external: true
+services:
+  lukecoolthing:
+    container_name: lukecoolthing
+    image: myapp
+    restart: unless-stopped
+    networks:
+      - traefik
+      - pg
+    labels:
+      # this is so the traefik proxy connects your domain to your app
+      - "traefik.enable=true"
+      - "traefik.http.routers.stopwatch.rule=Host(`myapp.meritprepacademy.app`)"
+      - "traefik.http.routers.stopwatch.entrypoints=web"
+      - "traefik.http.services.stopwatch.loadbalancer.server.port=8080"
