@@ -17,6 +17,7 @@ services:
     labels:
       # this is so the traefik proxy connects your domain to your app
       - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
       - "traefik.http.routers.lukecoolthing.rule=Host(`lukecoolthing.meritprepacademy.app`)"
       - "traefik.http.routers.lukecoolthing.entrypoints=web"
       - "traefik.http.services.lukecoolthing.loadbalancer.server.port=8080"
