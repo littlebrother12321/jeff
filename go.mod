@@ -6,6 +6,7 @@ require github.com/beego/beego/v2 v2.1.0
 
 require (
 	github.com/joho/godotenv v1.5.1
+	github.com/lib/pq v1.10.5
 	github.com/mattn/go-sqlite3 v1.14.7
 	github.com/smartystreets/goconvey v1.6.4
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd
