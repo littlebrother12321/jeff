@@ -2,6 +2,9 @@ package models
 
 import (
 	"log"
+	"os"
+	"fmt"
+	
 	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
@@ -19,8 +22,9 @@ var O orm.Ormer
 func InitDB() {
 	driverName := os.Getenv("DATABASE_DRIVER")
 	dataSource := os.Getenv("DATABASE_URL")
+	driver := orm.DRSqlite
 	if driverName == "postgres" {
-		driver = orm.DRPostgress
+		driver = orm.DRPostgres
 	} else {
 		driverName = "sqlite3"
 		dataSource = "./public.db.db"
@@ -34,6 +38,20 @@ func InitDB() {
 	err := orm.RunSyncdb("default", false, true)
 	if err != nil {
 		log.Fatalf("Failed to sync database: %v", err)
+	}
+
+	if driverName == "postgres" {
+		_, err = O.Raw(`CREATE TABLE IF NOT EXISTS "session") (
+			"session_key" CHAR(64) NOT NULL,
+			"session_data" BYTEA,
+			"session_expiry" BIGINT NOT NULL,
+			PRIMARY KEY ("session_key")
+		);`).Exec()
+		if err != nil {
+			fmt.Println("table `session` created")
+		} else {
+			fmt.Println("`session` table not created, application may not work")
+		}
 	}
 }
 
