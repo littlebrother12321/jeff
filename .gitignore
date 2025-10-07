@@ -5,4 +5,5 @@ node_modules
 lukecoolthing.tar
 libredatabase.odb
 create_db.sh*
-conf/prod.conf
+conf/prod.conf*
+.gitignore~
