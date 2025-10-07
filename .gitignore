@@ -5,3 +5,4 @@ node_modules
 lukecoolthing.tar
 libredatabase.odb
 create_db.sh*
+conf/prod.conf
