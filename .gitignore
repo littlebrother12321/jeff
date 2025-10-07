@@ -9,3 +9,4 @@ conf/prod.conf*
 .gitignore~
 conf/prod.conf
 .env.prod*
+public.db.db
