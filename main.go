@@ -1,9 +1,9 @@
 package main
 
 import (
+	"log"
 	"firstbee/models"
 	_ "firstbee/routers"
-	"os"
 	
 	beego "github.com/beego/beego/v2/server/web"
 	_ "github.com/beego/beego/v2/server/web/session/postgres"
