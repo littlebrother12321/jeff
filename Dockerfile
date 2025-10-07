@@ -10,6 +10,8 @@ RUN go mod download
 # Copy the rest of the application code from host to image
 COPY . .
 
+COPY ./conf/prod.conf ./conf/app.conf
+
 # Compile
 RUN CGO_ENABLED=1 GOOS=linux go build -o server .
 
@@ -30,6 +32,8 @@ COPY --from=builder /app/server .
 COPY --from=builder /app/static ./static/
 COPY --from=builder /app/views ./views/
 COPY --from=builder /app/conf/app.conf ./conf/
+
+COPY .env.prod .env
 
 # Create user to run app so it's not run as root
 RUN useradd appuser
