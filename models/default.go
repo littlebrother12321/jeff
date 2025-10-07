@@ -84,6 +84,6 @@ type TeamMember struct {
 
 func init() {
 	orm.RegisterDriver("sqlite3", orm.DRSqlite)
-	orm.RegisterDataBase("default", "sqlite3", "./stopwatch.db")
+	orm.RegisterDataBase("default", "sqlite3", "./public.db.db")
 	orm.RegisterModel(new(Race))
 }
