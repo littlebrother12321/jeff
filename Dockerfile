@@ -28,11 +28,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
+# Copy the rest of the application code from host to image
+COPY . .
+# NEW: Overwrite the app.conf with prod version
+COPY ./conf/prod.conf ./conf/app.conf 
+
+#### .........
+# Ensure you have all of these COPY statements.
 COPY --from=builder /app/server .
 COPY --from=builder /app/static ./static/
+COPY --from=builder /app/models ./models/
+COPY --from=builder /app/utils ./utils/
 COPY --from=builder /app/views ./views/
 COPY --from=builder /app/conf/app.conf ./conf/
-
+COPY --from=builder /app/go.* .
+COPY --from=builder /app/scripts ./scripts/
 COPY .env.prod .env
 
 # Create user to run app so it's not run as root
