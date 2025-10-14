@@ -10,3 +10,4 @@ conf/prod.conf*
 conf/prod.conf
 .env.prod*
 public.db.db
+Dockerfile*
